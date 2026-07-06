@@ -1,0 +1,19 @@
+# Node / React
+Client/**/node_modules/
+Client/**/dist/
+Client/**/.env.local
+Client/**/.env.development.local
+Client/**/.env.production.local
+
+# .NET
+Server/**/bin/
+Server/**/obj/
+
+# IDE
+.idea/
+.vs/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
