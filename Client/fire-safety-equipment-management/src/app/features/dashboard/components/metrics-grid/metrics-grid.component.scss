@@ -1,0 +1,114 @@
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(190px, 1fr));
+  gap: 20px;
+  margin-top: 22px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.metric-card {
+  min-height: 164px;
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  grid-template-rows: 1fr auto;
+  gap: 8px 14px;
+  padding: 26px 22px;
+}
+
+.metric-icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.danger {
+  color: var(--red);
+  background: #ffe4e4;
+}
+
+.warning {
+  color: var(--orange);
+  background: #fff0dc;
+}
+
+.success {
+  color: #1da956;
+  background: #dff8e7;
+}
+
+.info {
+  color: var(--violet);
+  background: #eeeaff;
+}
+
+.metric-copy {
+  display: grid;
+  gap: 9px;
+}
+
+.metric-copy span {
+  color: #21304a;
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.metric-copy strong {
+  color: #11203a;
+  font-size: 34px;
+  line-height: 1;
+}
+
+.metric-copy small {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.sparkline {
+  align-self: end;
+  justify-self: end;
+  grid-column: 2;
+  width: 106px;
+  height: 34px;
+  background: transparent;
+}
+
+.sparkline path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+}
+
+@media (max-width: 1280px) {
+  .metric-grid {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 860px) {
+  .metric-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .metric-card {
+    grid-template-columns: 48px 1fr;
+    padding: 20px;
+  }
+
+  .sparkline {
+    grid-column: 1 / -1;
+    justify-self: stretch;
+    width: 100%;
+  }
+}

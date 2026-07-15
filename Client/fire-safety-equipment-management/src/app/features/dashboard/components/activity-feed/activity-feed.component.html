@@ -1,0 +1,26 @@
+<article class="panel activity-panel">
+  <h2>Legutóbbi tevékenységek</h2>
+
+  <div class="activity-list">
+    @for (activity of activities; track activity.title + activity.target) {
+      <div class="activity-row">
+        <span
+          [class.danger]="activity.tone === 'danger'"
+          [class.info]="activity.tone === 'info'"
+          [class.success]="activity.tone === 'success'"
+          [class.violet]="activity.tone === 'violet'"
+          class="activity-icon"
+        >
+          <app-icon [name]="iconFor(activity.tone)"/>
+        </span>
+        <span>
+          <strong>{{ activity.title }}</strong>
+          <small>{{ activity.target }}</small>
+        </span>
+        <time>{{ activity.time }}</time>
+      </div>
+    }
+  </div>
+
+  <a class="view-all" href="#activity">Összes tevékenység megtekintése <span>→</span></a>
+</article>

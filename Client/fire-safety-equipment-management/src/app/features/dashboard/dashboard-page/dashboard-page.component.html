@@ -1,0 +1,30 @@
+<div class="app-shell">
+  <app-sidebar/>
+
+  <main class="dashboard">
+    <app-topbar/>
+
+    <section class="content">
+      <app-dashboard-header
+        [apiState]="dashboard().healthMessage"
+        [period]="dashboard().period"
+      />
+
+      <app-metrics-grid [metrics]="dashboard().metrics"/>
+
+      <section class="middle-grid">
+        <app-status-breakdown
+          [items]="dashboard().statusSummary"
+          [total]="totalEquipment()"
+        />
+        <app-expiring-equipment-list [items]="dashboard().expiringEquipment"/>
+        <app-quick-actions/>
+      </section>
+
+      <section class="bottom-grid">
+        <app-expired-equipment-table [items]="dashboard().expiredEquipment"/>
+        <app-activity-feed [activities]="dashboard().activities"/>
+      </section>
+    </section>
+  </main>
+</div>

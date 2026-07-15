@@ -1,0 +1,48 @@
+.page-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.page-heading p {
+  margin-top: 9px;
+  color: var(--muted);
+}
+
+.date-filter {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  color: #22304b;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(32, 46, 74, 0.04);
+}
+
+.api-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  margin-top: 14px;
+  padding: 4px 11px;
+  color: #536179;
+  background: #eef4ff;
+  border: 1px solid #dce8ff;
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+@media (max-width: 860px) {
+  .page-heading {
+    display: grid;
+  }
+
+  .date-filter {
+    width: 100%;
+    justify-content: center;
+  }
+}

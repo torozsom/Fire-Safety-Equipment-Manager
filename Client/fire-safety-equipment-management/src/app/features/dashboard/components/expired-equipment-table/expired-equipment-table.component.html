@@ -1,0 +1,40 @@
+<article class="panel table-panel">
+  <div class="section-title">
+    <h2>Lejárt eszközök</h2>
+    <span class="count-badge">12</span>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+      <tr>
+        <th>Eszköz azonosító</th>
+        <th>Típus</th>
+        <th>Telephely</th>
+        <th>Esedékesség dátuma</th>
+        <th>Státusz</th>
+        <th>Műveletek</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (item of items; track item.id) {
+          <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.type }}</td>
+            <td>{{ item.site }}</td>
+            <td>{{ item.dueDate }}</td>
+            <td><span class="status-badge">{{ item.status }}</span></td>
+            <td>
+              <button [attr.aria-label]="item.id + ' megtekintése'" class="mini-button">
+                <app-icon name="eye"/>
+              </button>
+              <button [attr.aria-label]="item.id + ' további műveletek'" class="mini-button">•••</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <a class="view-all" href="#expired">Összes lejárt eszköz megtekintése <span>→</span></a>
+</article>

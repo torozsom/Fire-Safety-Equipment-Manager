@@ -1,0 +1,19 @@
+<article class="panel expiring-panel">
+  <div class="panel-title">
+    <h2>Közelgő lejáratok</h2>
+    <button>Összes</button>
+  </div>
+
+  <div class="stack-list">
+    @for (item of items; track item.id) {
+      <div class="expiring-row">
+        <span class="pin"><app-icon name="pin"/></span>
+        <span>
+          <strong>{{ equipmentName(item.id) }} - {{ item.id }}</strong>
+          <small>{{ item.location }}</small>
+        </span>
+        <em [class.urgent]="item.daysLeft <= 7">{{ item.daysLeft }} nap múlva</em>
+      </div>
+    }
+  </div>
+</article>

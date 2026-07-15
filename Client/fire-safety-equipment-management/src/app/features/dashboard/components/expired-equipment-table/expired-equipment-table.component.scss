@@ -1,0 +1,109 @@
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.table-panel {
+  padding: 22px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.count-badge {
+  display: inline-flex;
+  min-width: 32px;
+  height: 25px;
+  align-items: center;
+  justify-content: center;
+  color: #ff3f42;
+  background: #ffe8e8;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  margin-top: 22px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+th,
+td {
+  height: 52px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--line-soft);
+  text-align: left;
+  white-space: nowrap;
+}
+
+th {
+  color: #40506a;
+  background: #fbfcff;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+td {
+  color: #10203b;
+  font-weight: 620;
+}
+
+tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.status-badge {
+  display: inline-flex;
+  min-height: 30px;
+  align-items: center;
+  padding: 0 12px;
+  color: #ef3035;
+  background: #ffe3e5;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.mini-button {
+  display: inline-grid;
+  width: 42px;
+  height: 32px;
+  margin-right: 8px;
+  place-items: center;
+  color: #31405a;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  vertical-align: middle;
+}
+
+.mini-button app-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 16px;
+  color: #1f5fe6;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
