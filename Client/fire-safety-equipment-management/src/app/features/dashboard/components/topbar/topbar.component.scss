@@ -1,0 +1,146 @@
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 32px;
+  border-bottom: 1px solid var(--line-soft);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+}
+
+.icon-button,
+.plain-button {
+  display: grid;
+  place-items: center;
+  color: #31405a;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.icon-button {
+  position: relative;
+  width: 48px;
+  height: 48px;
+}
+
+.has-alert::after {
+  content: "2";
+  position: absolute;
+  top: -8px;
+  right: -7px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  color: #ffffff;
+  background: #ec2525;
+  border: 2px solid #ffffff;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 16px;
+}
+
+.topbar .has-alert:first-of-type::after {
+  content: "4";
+}
+
+.search {
+  width: min(540px, 42vw);
+  min-width: 320px;
+  height: 48px;
+  display: grid;
+  grid-template-columns: 22px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  color: #7b8799;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.search input {
+  min-width: 0;
+  color: var(--text);
+  border: 0;
+  outline: 0;
+}
+
+.search kbd {
+  padding: 2px 8px;
+  color: #657187;
+  background: #f5f7fb;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-left: auto;
+}
+
+.avatar {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  color: #42506a;
+  background: #eef2fa;
+  border-radius: 50%;
+  font-weight: 700;
+}
+
+.avatar.muted {
+  width: 50px;
+  height: 50px;
+}
+
+.account strong,
+.account small {
+  display: block;
+}
+
+.account strong {
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.account small {
+  color: var(--muted-2);
+  font-size: 13px;
+}
+
+.plain-button {
+  width: 32px;
+  height: 32px;
+  border: 0;
+}
+
+@media (max-width: 860px) {
+  .topbar {
+    height: auto;
+    flex-wrap: wrap;
+    padding: 16px;
+  }
+
+  .search {
+    order: 3;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .topbar-actions {
+    gap: 8px;
+  }
+
+  .account {
+    display: none;
+  }
+}

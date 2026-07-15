@@ -1,0 +1,49 @@
+<article class="panel status-panel">
+  <div class="panel-title">
+    <h2>Eszközök státusz szerinti bontásban</h2>
+    <button>Összes telephely <span>⌄</span></button>
+  </div>
+
+  <div class="status-content">
+    <div class="donut-shell">
+      <svg [attr.aria-label]="total + ' összes eszköz'" viewBox="0 0 240 240">
+        @for (item of segments; track item.label) {
+          <circle
+            [attr.stroke-dasharray]="(item.share * 100) + ' ' + (100 - item.share * 100)"
+            [attr.stroke-dashoffset]="-item.offset * 100"
+            [class.green]="item.color === 'green'"
+            [class.orange]="item.color === 'orange'"
+            [class.red]="item.color === 'red'"
+            [class.violet]="item.color === 'violet'"
+            class="donut-segment"
+            cx="120"
+            cy="120"
+            fill="transparent"
+            r="84"
+            stroke-width="44"
+          />
+        }
+      </svg>
+      <div class="donut-center">
+        <strong>{{ total }}</strong>
+        <span>Összes eszköz</span>
+      </div>
+    </div>
+
+    <div class="legend">
+      @for (item of items; track item.label) {
+        <div class="legend-row">
+          <span
+            [class.green]="item.color === 'green'"
+            [class.orange]="item.color === 'orange'"
+            [class.red]="item.color === 'red'"
+            [class.violet]="item.color === 'violet'"
+            class="dot"
+          ></span>
+          <span>{{ item.label }}</span>
+          <strong>{{ item.value }} ({{ formatPercentage(item.percentage) }})</strong>
+        </div>
+      }
+    </div>
+  </div>
+</article>

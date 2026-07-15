@@ -1,0 +1,20 @@
+:host {
+  display: inline-grid;
+  width: 20px;
+  height: 20px;
+  place-items: center;
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+path {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}

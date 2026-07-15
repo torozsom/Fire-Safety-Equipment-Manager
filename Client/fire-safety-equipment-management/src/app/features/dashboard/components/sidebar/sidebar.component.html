@@ -1,0 +1,36 @@
+<aside class="sidebar">
+  <div class="brand">
+    <span class="brand-mark"><app-icon name="flame"/></span>
+    <span>Tűzvédelmi<br/>Eszközkezelő</span>
+  </div>
+
+  <nav aria-label="Fő navigáció" class="nav-list">
+    @for (item of navItems; track item.label; let index = $index) {
+      <button [class.active]="index === 0" class="nav-item">
+        <app-icon [name]="item.icon"/>
+        <span>{{ item.label }}</span>
+        @if (item.label === 'Értesítések') {
+          <span class="nav-badge">4</span>
+        }
+        @if (item.label === 'Adminisztráció') {
+          <span class="chevron">⌄</span>
+        }
+      </button>
+    }
+  </nav>
+
+  <div class="sidebar-footer">
+    <button class="user-card">
+      <span class="avatar">VK</span>
+      <span>
+        <strong>Kovács Gábor</strong>
+        <small>Karbantartó</small>
+      </span>
+      <span class="chevron">⌄</span>
+    </button>
+    <button class="logout">
+      <app-icon name="logout"/>
+      Kijelentkezés
+    </button>
+  </div>
+</aside>

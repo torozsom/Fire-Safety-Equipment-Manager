@@ -1,0 +1,31 @@
+<section aria-label="Fő mutatók" class="metric-grid">
+  @for (metric of metrics; track metric.title) {
+    <article class="panel metric-card">
+      <div
+        [class.danger]="metric.tone === 'danger'"
+        [class.info]="metric.tone === 'info'"
+        [class.success]="metric.tone === 'success'"
+        [class.warning]="metric.tone === 'warning'"
+        class="metric-icon"
+      >
+        {{ metricIcon(metric.tone) }}
+      </div>
+      <div class="metric-copy">
+        <span>{{ metric.title }}</span>
+        <strong>{{ metric.value }}</strong>
+        <small>{{ metric.subtitle }}</small>
+      </div>
+      <svg
+        [class.danger]="metric.tone === 'danger'"
+        [class.info]="metric.tone === 'info'"
+        [class.success]="metric.tone === 'success'"
+        [class.warning]="metric.tone === 'warning'"
+        aria-hidden="true"
+        class="sparkline"
+        viewBox="0 0 106 34"
+      >
+        <path [attr.d]="sparklinePath(metric.trend)"/>
+      </svg>
+    </article>
+  }
+</section>

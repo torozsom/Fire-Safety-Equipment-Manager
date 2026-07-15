@@ -1,6 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
 
+/**
+ * Smoke tests for the root standalone Angular component.
+ */
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -18,6 +21,8 @@ describe('App', () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, fire-safety-equipment-management');
+    expect(compiled.querySelector('h1')?.textContent).toContain(
+      'Hello, fire-safety-equipment-management',
+    );
   });
 });

@@ -1,0 +1,45 @@
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.quick-panel {
+  padding: 22px;
+}
+
+.quick-panel h2 {
+  margin-bottom: 18px;
+}
+
+.quick-list {
+  display: grid;
+  gap: 12px;
+}
+
+.quick-action {
+  min-height: 46px;
+  display: grid;
+  grid-template-columns: 22px 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 0 16px;
+  color: #263652;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  text-align: left;
+}
+
+.quick-action.primary {
+  color: #ffffff;
+  background: linear-gradient(135deg, #3668ed, #2452d6);
+  border-color: transparent;
+  box-shadow: 0 12px 24px rgba(36, 82, 214, 0.24);
+}
+
+.quick-action .arrow {
+  font-size: 26px;
+  line-height: 1;
+}

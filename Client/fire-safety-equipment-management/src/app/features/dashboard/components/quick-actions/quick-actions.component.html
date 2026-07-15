@@ -1,0 +1,12 @@
+<article class="panel quick-panel">
+  <h2>Gyorsműveletek</h2>
+  <div class="quick-list">
+    @for (action of quickActions; track action.label; let index = $index) {
+      <button [class.primary]="index === 0" class="quick-action">
+        <app-icon [name]="action.icon"/>
+        <span>{{ action.label }}</span>
+        <span class="arrow">›</span>
+      </button>
+    }
+  </div>
+</article>
