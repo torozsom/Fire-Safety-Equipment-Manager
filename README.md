@@ -1,4 +1,4 @@
-# Fire Safety Equipment Management
+# Fire Safety Equipment Manager
 
 A clean, practical platform for organizing fire safety equipment records, tracking maintenance activity, and keeping safety operations visible across teams.
 
