@@ -24,15 +24,9 @@ var app = builder.Build();
 app.UseCors(allowedOrigins);
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+if (app.Environment.IsDevelopment()) app.MapOpenApi();
 
-if (!app.Environment.IsDevelopment())
-{
-    app.UseHttpsRedirection();
-}
+if (!app.Environment.IsDevelopment()) app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
@@ -99,10 +93,24 @@ app.MapGet("/api/dashboard", () => new
     },
     expiredEquipment = new[]
     {
-        new { id = "PO-2023-0001", type = "Porral oltó", site = "Irodaépület - 2. emelet", dueDate = "2026. 05. 18.", status = "Lejárt" },
-        new { id = "TC-2022-0002", type = "Tűzcsap", site = "Raktár csarnok", dueDate = "2026. 05. 17.", status = "Lejárt" },
-        new { id = "CO2-2021-0004", type = "CO2 oltó", site = "Adatközpont", dueDate = "2026. 05. 16.", status = "Lejárt" },
-        new { id = "PO-2022-0011", type = "Porral oltó", site = "Üzlethelyiség", dueDate = "2026. 05. 15.", status = "Lejárt" }
+        new
+        {
+            id = "PO-2023-0001", type = "Porral oltó", site = "Irodaépület - 2. emelet", dueDate = "2026. 05. 18.",
+            status = "Lejárt"
+        },
+        new
+        {
+            id = "TC-2022-0002", type = "Tűzcsap", site = "Raktár csarnok", dueDate = "2026. 05. 17.", status = "Lejárt"
+        },
+        new
+        {
+            id = "CO2-2021-0004", type = "CO2 oltó", site = "Adatközpont", dueDate = "2026. 05. 16.", status = "Lejárt"
+        },
+        new
+        {
+            id = "PO-2022-0011", type = "Porral oltó", site = "Üzlethelyiség", dueDate = "2026. 05. 15.",
+            status = "Lejárt"
+        }
     },
     activities = new[]
     {
