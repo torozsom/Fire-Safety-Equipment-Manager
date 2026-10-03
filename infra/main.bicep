@@ -12,7 +12,7 @@ param containerEnvironmentName string = 'fire-safety-equipment-manager-prod-app-
 @description('Log Analytics workspace name.')
 param logAnalyticsWorkspaceName string = 'fire-safety-equipment-manager-prod-app-logs'
 
-@description('Fully qualified container image, for example ghcr.io/owner/repository:sha.')
+@description('Fully qualified container image.')
 param containerImage string
 
 @description('Container registry server.')

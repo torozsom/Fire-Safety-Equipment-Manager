@@ -28,26 +28,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build image
-        run: docker build --file .automate/Dockerfile --tag "$CONTAINER_IMAGE" .
-
-      - name: Push image
-        run: docker push "$CONTAINER_IMAGE"
-
-      - name: Show expected Azure OIDC context
-        run: |
-          echo "GitHub repository: $GITHUB_REPOSITORY"
-          echo "GitHub ref: $GITHUB_REF"
-          echo "Expected subject: repo:${GITHUB_REPOSITORY}:ref:${GITHUB_REF}"
-          echo "Expected audience: api://AzureADTokenExchange"
-
       - name: Azure login
         id: azure_login
         uses: azure/login@v3
@@ -70,6 +50,25 @@ jobs:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build image
+        run: docker build --file .automate/Dockerfile --tag "$CONTAINER_IMAGE" .
+
+      - name: Push image
+        run: docker push "$CONTAINER_IMAGE"
+
+      - name: Show expected Azure OIDC context
+        run: |
+          echo "GitHub repository: $GITHUB_REPOSITORY"
+          echo "GitHub ref: $GITHUB_REF"
+          echo "Expected subject: repo:${GITHUB_REPOSITORY}:ref:${GITHUB_REF}"
+          echo "Expected audience: api://AzureADTokenExchange"
 
       - name: Ensure resource group
         uses: azure/cli@v2
