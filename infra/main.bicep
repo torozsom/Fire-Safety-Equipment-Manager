@@ -26,7 +26,7 @@ param containerRegistryUsername string = ''
 param containerRegistryPassword string = ''
 
 @description('Application environment name exposed to ASP.NET Core.')
-param aspNetCoreEnvironment string = 'Production'
+param aspNetCoreEnvironment string = 'Staging'
 var hasRegistryCredentials = !empty(containerRegistryUsername) && !empty(containerRegistryPassword)
 
 resource logAnalytics 'Microsoft.OperationalInsights/workspaces@2023-09-01' = {

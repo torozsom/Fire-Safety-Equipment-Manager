@@ -90,6 +90,6 @@ jobs:
             containerRegistryServer=ghcr.io
             containerRegistryUsername=${{ github.actor }}
             containerRegistryPassword=${{ secrets.GHCR_PAT }}
-            aspNetCoreEnvironment=Production
+            aspNetCoreEnvironment=Staging
           deploymentName: automate-aca-${{ github.run_number }}
           failOnStdErr: false
