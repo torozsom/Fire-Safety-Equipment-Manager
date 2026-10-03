@@ -1,0 +1,17 @@
+services:
+  web:
+    container_name: api-web
+    build:
+      context: ..
+      dockerfile: .automate/Dockerfile
+    ports:
+      - "65494:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+      # --- User defined environmental variables ---
+      - AllowedHosts=*
+      - Logging__LogLevel__Default=Information
+      - Logging__LogLevel__Microsoft.AspNetCore=Warning
+
+

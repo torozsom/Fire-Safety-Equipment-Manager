@@ -29,8 +29,8 @@ public sealed class Notification : AuditableEntity
         DeduplicationKey deduplicationKey,
         DateTimeOffset scheduledAt,
         DateTimeOffset createdAt,
-        Guid? recipientUserId = null,
-        Guid? customerCompanyId = null)
+        Guid customerCompanyId,
+        Guid? recipientUserId = null)
         : base(id, createdAt, null)
     {
         Type = type;
@@ -41,7 +41,9 @@ public sealed class Notification : AuditableEntity
         DeduplicationKey = deduplicationKey;
         ScheduledAt = scheduledAt;
         RecipientUserId = recipientUserId;
-        CustomerCompanyId = customerCompanyId;
+        CustomerCompanyId = customerCompanyId == Guid.Empty
+            ? throw new DomainException("Customer company id is required.")
+            : customerCompanyId;
         Status = NotificationStatus.Pending;
     }
 
@@ -73,7 +75,7 @@ public sealed class Notification : AuditableEntity
     /// <summary>
     ///     Gets the customer company id value.
     /// </summary>
-    public Guid? CustomerCompanyId { get; private set; }
+    public Guid CustomerCompanyId { get; private set; }
 
     /// <summary>
     ///     Gets the equipment id value.
@@ -191,6 +193,9 @@ public sealed class Notification : AuditableEntity
     /// </summary>
     public void MarkSent(string? externalMessageId, DateTimeOffset sentAt)
     {
+        if (Status != NotificationStatus.Processing)
+            throw new DomainException("Only processing notifications can be sent.");
+
         Status = NotificationStatus.Sent;
         SentAt = sentAt;
         ExternalMessageId = string.IsNullOrWhiteSpace(externalMessageId) ? null : externalMessageId.Trim();
@@ -202,6 +207,10 @@ public sealed class Notification : AuditableEntity
     /// </summary>
     public void MarkFailed(string error, DateTimeOffset failedAt, DateTimeOffset? nextAttemptAt, int maxAttempts)
     {
+        if (Status != NotificationStatus.Processing)
+            throw new DomainException("Only processing notifications can fail.");
+        if (maxAttempts <= 0)
+            throw new DomainException("Maximum attempts must be greater than zero.");
         AttemptCount++;
         FailedAt = failedAt;
         LastError = Required(error, nameof(error));

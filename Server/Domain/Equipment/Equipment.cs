@@ -151,8 +151,9 @@ public sealed class Equipment : AuditableEntity
         DateTimeOffset updatedAt)
     {
         EnsureActiveRecord();
-        if (manufacturingYear is < 1900 or > 2200)
-            throw new DomainException("Manufacturing year is outside the supported range.");
+        if (manufacturingYear.HasValue &&
+            (manufacturingYear.Value < 1900 || manufacturingYear.Value > DateTime.UtcNow.Year))
+            throw new DomainException("Manufacturing year cannot be in the future.");
 
         SerialNumber = Optional(serialNumber);
         Manufacturer = Optional(manufacturer);

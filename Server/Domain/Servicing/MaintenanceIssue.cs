@@ -18,14 +18,17 @@ public sealed class MaintenanceIssue
     /// <summary>
     ///     Initializes a new instance of the MaintenanceIssue class.
     /// </summary>
-    public MaintenanceIssue(Guid maintenanceId, Guid issueId, MaintenanceIssueRelationType relationType,
+    public MaintenanceIssue(Maintenance maintenance, Issue issue, MaintenanceIssueRelationType relationType,
         DateTimeOffset createdAt, Guid? createdByUserId = null)
     {
-        if (maintenanceId == Guid.Empty || issueId == Guid.Empty)
-            throw new DomainException("Maintenance id and issue id are required.");
+        ArgumentNullException.ThrowIfNull(maintenance);
+        ArgumentNullException.ThrowIfNull(issue);
 
-        MaintenanceId = maintenanceId;
-        IssueId = issueId;
+        if (maintenance.EquipmentId != issue.EquipmentId)
+            throw new DomainException("Maintenance and issue must belong to the same equipment.");
+
+        MaintenanceId = maintenance.Id;
+        IssueId = issue.Id;
         RelationType = relationType;
         CreatedAt = createdAt;
         CreatedByUserId = createdByUserId;

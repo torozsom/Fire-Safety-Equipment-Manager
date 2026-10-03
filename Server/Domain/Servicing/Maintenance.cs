@@ -154,7 +154,7 @@ public sealed class Maintenance : AuditableEntity
         string findings,
         string? recommendation,
         DateOnly? nextInspectionDueDate,
-        Guid? completedByUserId,
+        Guid completedByUserId,
         DateTimeOffset completedAt)
     {
         if (Status is MaintenanceStatus.Completed or MaintenanceStatus.Cancelled)
@@ -162,6 +162,9 @@ public sealed class Maintenance : AuditableEntity
 
         if (performedByUserId == Guid.Empty)
             throw new InvalidMaintenanceStateException("Performed by user id is required.");
+
+        if (completedByUserId == Guid.Empty)
+            throw new InvalidMaintenanceStateException("Completed by user id is required.");
 
         PerformedDate = performedDate;
         PerformedByUserId = performedByUserId;

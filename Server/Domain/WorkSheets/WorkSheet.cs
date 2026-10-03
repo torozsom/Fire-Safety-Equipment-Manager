@@ -1,4 +1,6 @@
 using Domain.Common;
+using Domain.Servicing;
+using Domain.Servicing.Enums;
 using Domain.WorkSheets.Enums;
 using Domain.WorkSheets.Events;
 using Domain.WorkSheets.Exceptions;
@@ -30,16 +32,17 @@ public sealed class WorkSheet : AuditableEntity
         SiteSnapshot site,
         int versionNumber,
         DateTimeOffset createdAt,
-        Guid? createdByUserId = null)
+        Guid createdByUserId)
         : base(id, createdAt, createdByUserId)
     {
         if (serviceReportId == Guid.Empty) throw new WorkSheetCannotBeIssuedException("Service report id is required.");
+        if (createdByUserId == Guid.Empty) throw new WorkSheetCannotBeIssuedException("Creator id is required.");
 
         WorkSheetNumber = Required(workSheetNumber, nameof(workSheetNumber));
         ServiceReportId = serviceReportId;
-        IssuerCompany = issuerCompany;
-        CustomerCompany = customerCompany;
-        Site = site;
+        IssuerCompany = issuerCompany ?? throw new WorkSheetCannotBeIssuedException("Issuer company snapshot is required.");
+        CustomerCompany = customerCompany ?? throw new WorkSheetCannotBeIssuedException("Customer company snapshot is required.");
+        Site = site ?? throw new WorkSheetCannotBeIssuedException("Site snapshot is required.");
         VersionNumber = versionNumber > 0
             ? versionNumber
             : throw new WorkSheetCannotBeIssuedException("Version number must be greater than zero.");
@@ -144,7 +147,7 @@ public sealed class WorkSheet : AuditableEntity
         DateTimeOffset workCompletedAt,
         string workSummary,
         string? generalFindings,
-        string customerRepresentativeName,
+        string? customerRepresentativeName,
         string? customerRepresentativeTitle,
         Guid? updatedByUserId,
         DateTimeOffset updatedAt)
@@ -154,7 +157,7 @@ public sealed class WorkSheet : AuditableEntity
         WorkCompletedAt = workCompletedAt;
         WorkSummary = Required(workSummary, nameof(workSummary));
         GeneralFindings = Optional(generalFindings);
-        CustomerRepresentativeName = Required(customerRepresentativeName, nameof(customerRepresentativeName));
+        CustomerRepresentativeName = Optional(customerRepresentativeName);
         CustomerRepresentativeTitle = Optional(customerRepresentativeTitle);
         MarkUpdated(updatedByUserId, updatedAt);
     }
@@ -162,11 +165,20 @@ public sealed class WorkSheet : AuditableEntity
     /// <summary>
     ///     Executes the issue domain operation.
     /// </summary>
-    public void Issue(Guid issuedByUserId, DateTimeOffset issuedAt, Guid? generatedDocumentId)
+    public void Issue(ServiceReport serviceReport, Guid issuedByUserId, DateTimeOffset issuedAt,
+        Guid generatedDocumentId)
     {
         EnsureDraft();
-        if (WorkCompletedAt is null || string.IsNullOrWhiteSpace(WorkSummary) ||
-            string.IsNullOrWhiteSpace(CustomerRepresentativeName))
+        ArgumentNullException.ThrowIfNull(serviceReport);
+        if (serviceReport.Id != ServiceReportId)
+            throw new WorkSheetCannotBeIssuedException("Worksheet must be issued for its own service report.");
+        if (serviceReport.Status != ServiceReportStatus.Completed)
+            throw new WorkSheetCannotBeIssuedException("A worksheet may only be issued for a completed service report.");
+        if (issuedByUserId == Guid.Empty)
+            throw new WorkSheetCannotBeIssuedException("Issuing user id is required.");
+        if (generatedDocumentId == Guid.Empty)
+            throw new WorkSheetCannotBeIssuedException("Generated document id is required.");
+        if (WorkCompletedAt is null || string.IsNullOrWhiteSpace(WorkSummary))
             throw new WorkSheetCannotBeIssuedException("Worksheet work details must be completed before issuing.");
 
         Status = WorkSheetStatus.Issued;

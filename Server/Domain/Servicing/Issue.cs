@@ -147,6 +147,7 @@ public sealed class Issue : AuditableEntity
     public void Acknowledge(Guid acknowledgedByUserId, DateTimeOffset acknowledgedAt)
     {
         EnsureOpen();
+        EnsureUserId(acknowledgedByUserId, nameof(acknowledgedByUserId));
         Status = IssueStatus.Acknowledged;
         AcknowledgedAt = acknowledgedAt;
         AcknowledgedByUserId = acknowledgedByUserId;
@@ -169,6 +170,7 @@ public sealed class Issue : AuditableEntity
     public void Resolve(string resolution, Guid resolvedByUserId, DateTimeOffset resolvedAt)
     {
         EnsureOpen();
+        EnsureUserId(resolvedByUserId, nameof(resolvedByUserId));
         Resolution = Required(resolution, nameof(resolution));
         Status = IssueStatus.Resolved;
         ResolvedAt = resolvedAt;
@@ -182,6 +184,7 @@ public sealed class Issue : AuditableEntity
     public void Close(Guid closedByUserId, DateTimeOffset closedAt)
     {
         if (Status != IssueStatus.Resolved) throw new DomainException("Only resolved issues can be closed.");
+        EnsureUserId(closedByUserId, nameof(closedByUserId));
 
         Status = IssueStatus.Closed;
         ClosedAt = closedAt;
@@ -195,6 +198,7 @@ public sealed class Issue : AuditableEntity
     public void Reject(string reason, Guid rejectedByUserId, DateTimeOffset rejectedAt)
     {
         EnsureOpen();
+        EnsureUserId(rejectedByUserId, nameof(rejectedByUserId));
         RejectionReason = Required(reason, nameof(reason));
         Status = IssueStatus.Rejected;
         MarkUpdated(rejectedByUserId, rejectedAt);
@@ -217,5 +221,10 @@ public sealed class Issue : AuditableEntity
         if (string.IsNullOrWhiteSpace(value)) throw new DomainException($"{parameterName} is required.");
 
         return value.Trim();
+    }
+
+    private static void EnsureUserId(Guid userId, string parameterName)
+    {
+        if (userId == Guid.Empty) throw new DomainException($"{parameterName} is required.");
     }
 }
