@@ -1,19 +1,21 @@
 targetScope = 'resourceGroup'
 
 @description('Azure region for the Container Apps resources.')
-param location string = 'centralus'
+param location string = 'northeurope'
 
 @description('Container App name.')
-param containerAppName string = 'fire-safety-equipment-manager-prod-app'
+param containerAppName string = 'fire-safety-equipment-manager-dev-app'
 
 @description('Container Apps managed environment name.')
-param containerEnvironmentName string = 'fire-safety-equipment-manager-prod-app-env'
+param containerEnvironmentName string = 'fire-safety-equipment-manager-dev-app-env'
 
 @description('Log Analytics workspace name.')
-param logAnalyticsWorkspaceName string = 'fire-safety-equipment-manager-prod-app-logs'
+param logAnalyticsWorkspaceName string = 'fire-safety-equipment-manager-dev-app-logs'
 
 @description('Fully qualified container image.')
 param containerImage string
+
+param revisionSuffix string = ''
 
 @description('Container registry server.')
 param containerRegistryServer string = 'ghcr.io'
@@ -26,7 +28,7 @@ param containerRegistryUsername string = ''
 param containerRegistryPassword string = ''
 
 @description('Application environment name exposed to ASP.NET Core.')
-param aspNetCoreEnvironment string = 'Staging'
+param aspNetCoreEnvironment string = 'Development'
 var hasRegistryCredentials = !empty(containerRegistryUsername) && !empty(containerRegistryPassword)
 
 resource logAnalytics 'Microsoft.OperationalInsights/workspaces@2023-09-01' = {
@@ -88,6 +90,7 @@ resource containerApp 'Microsoft.App/containerApps@2024-03-01' = {
       ] : []
     }
     template: {
+      revisionSuffix: revisionSuffix
       containers: [
         {
           name: 'web'
