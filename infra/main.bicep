@@ -1,16 +1,16 @@
 targetScope = 'resourceGroup'
 
 @description('Azure region for the Container Apps resources.')
-param location string = 'northeurope'
+param location string = 'centralus'
 
 @description('Container App name.')
-param containerAppName string = 'fire-safety-equipment-manager-dev-app'
+param containerAppName string = 'fire-safety-equipment-manager-stag-app'
 
 @description('Container Apps managed environment name.')
-param containerEnvironmentName string = 'fire-safety-equipment-manager-dev-app-env'
+param containerEnvironmentName string = 'fire-safety-equipment-manager-stag-app-env'
 
 @description('Log Analytics workspace name.')
-param logAnalyticsWorkspaceName string = 'fire-safety-equipment-manager-dev-app-logs'
+param logAnalyticsWorkspaceName string = 'fire-safety-equipment-manager-stag-app-logs'
 
 @description('Fully qualified container image.')
 param containerImage string
@@ -28,7 +28,7 @@ param containerRegistryUsername string = ''
 param containerRegistryPassword string = ''
 
 @description('Application environment name exposed to ASP.NET Core.')
-param aspNetCoreEnvironment string = 'Development'
+param aspNetCoreEnvironment string = 'Staging'
 var hasRegistryCredentials = !empty(containerRegistryUsername) && !empty(containerRegistryPassword)
 
 resource logAnalytics 'Microsoft.OperationalInsights/workspaces@2023-09-01' = {

@@ -14,9 +14,9 @@ permissions:
   id-token: write
 
 env:
-  AZURE_RESOURCE_GROUP: fire-safety-equipment-manager-dev-rg
-  AZURE_LOCATION: northeurope
-  CONTAINER_APP_NAME: fire-safety-equipment-manager-dev-app
+  AZURE_RESOURCE_GROUP: fire-safety-equipment-manager-stag-rg
+  AZURE_LOCATION: centralus
+  CONTAINER_APP_NAME: fire-safety-equipment-manager-stag-app
   CONTAINER_IMAGE: ghcr.io/${{ github.repository_owner }}/fire-safety-equipment-manager:${{ github.sha }}
   AZURE_CORE_OUTPUT: none
 
@@ -90,6 +90,6 @@ jobs:
             containerRegistryServer=ghcr.io
             containerRegistryUsername=${{ github.actor }}
             containerRegistryPassword=${{ secrets.GHCR_PAT }}
-            aspNetCoreEnvironment=Development
+            aspNetCoreEnvironment=Staging
           deploymentName: automate-aca-${{ github.run_number }}
           failOnStdErr: false
